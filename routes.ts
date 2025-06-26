@@ -5,6 +5,7 @@ import { insertUserSchema } from "./schema.js";
 import { z } from "zod";
 import { aiManager } from "./ai/manager";
 import { siteStorage } from "./storage/sites";
+import { setupGitHubRoutes } from "./routes/github.js";
 import multer from "multer";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -360,6 +361,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
+
+  // Setup GitHub App routes
+  setupGitHubRoutes(app);
 
   const httpServer = createServer(app);
 
