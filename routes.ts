@@ -1,17 +1,35 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertUserSchema } from "./schema.js";
+import { localUserSchema } from "./schema.js";
 import { z } from "zod";
 import { aiManager } from "./ai/manager";
 import { siteStorage } from "./storage/sites";
 import multer from "multer";
+import passport from "./lib/auth";
+import session from "express-session";
+import MemoryStore from "memorystore";
+
+const memorystore = MemoryStore(session);
 
 export async function registerRoutes(app: Express): Promise<Server> {
+
+  app.use(
+    session({
+      secret: process.env.SESSION_SECRET || "secret",
+      resave: false,
+      saveUninitialized: false,
+      store: new memorystore({ checkPeriod: 86400000 }), // 24h
+    })
+  );
+  
+  app.use(passport.initialize());
+  app.use(passport.session());
+
   // Authentication routes
   app.post("/api/auth/signup", async (req, res) => {
     try {
-      const { username, password } = insertUserSchema.parse(req.body);
+      const { username, password } = localUserSchema.parse(req.body);
 
       // Check if user already exists
       const existingUser = await storage.getUserByUsername(username);
@@ -33,7 +51,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/auth/login", async (req, res) => {
     try {
-      const { username, password } = insertUserSchema.parse(req.body);
+      const { username, password } = localUserSchema.parse(req.body);
 
       const user = await storage.getUserByUsername(username);
       if (!user || user.password !== password) {
@@ -50,6 +68,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Internal server error" });
     }
   });
+
+  app.get("/api/auth/google", passport.authenticate("google"));
+
+  app.get(
+    "/api/auth/google/callback",
+    passport.authenticate("google", {
+      failureRedirect: "/login",
+      successRedirect: "/",
+    })
+  );
 
   // Configure multer for file uploads
   const upload = multer({

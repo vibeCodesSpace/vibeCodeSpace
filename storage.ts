@@ -1,20 +1,23 @@
-import { users, type User, type InsertUser } from "./schema.js";
+import { type User, type InsertUser } from "./schema.js";
+import { DBStorage } from "./dbStorage.js";
 
-// modify the interface with any CRUD methods
-// you might need
-
+// The single source of truth for the storage interface
 export interface IStorage {
   getUser(id: number): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
+  getUserByGoogleId(googleId: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
 }
 
+// In-memory storage for testing or local development
 export class MemStorage implements IStorage {
   private users: Map<number, User>;
+  private googleIdMap: Map<string, User>;
   currentId: number;
 
   constructor() {
     this.users = new Map();
+    this.googleIdMap = new Map();
     this.currentId = 1;
   }
 
@@ -28,13 +31,26 @@ export class MemStorage implements IStorage {
     );
   }
 
+  async getUserByGoogleId(googleId: string): Promise<User | undefined> {
+      return Array.from(this.users.values()).find(
+      (user) => user.googleId === googleId,
+    );
+  }
+
   async createUser(insertUser: InsertUser): Promise<User> {
     const id = this.currentId++;
-    const user: User = { ...insertUser, id };
+    const user: User = {
+        id,
+        username: insertUser.username!,
+        password: insertUser.password ?? null,
+        googleId: insertUser.googleId ?? null,
+    };
     this.users.set(id, user);
+    if(user.googleId) {
+        this.googleIdMap.set(user.googleId, user);
+    }
     return user;
   }
 }
 
-export { IStorage } from "./dbStorage.js";
-export const storage = new DBStorage();
+export const storage: IStorage = new DBStorage();

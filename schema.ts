@@ -5,13 +5,18 @@ import { z } from "zod";
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   username: text("username").notNull().unique(),
-  password: text("password").notNull(),
+  password: text("password"), // Null for OAuth users
+  googleId: text("googleId").unique(),
 });
 
-export const insertUserSchema = createInsertSchema(users).pick({
-  username: true,
-  password: true,
+// Schema for local signup validation (requires password)
+export const localUserSchema = createInsertSchema(users, {
+    password: z.string().min(6, "Password must be at least 6 characters"),
+}).pick({
+    username: true,
+    password: true,
 });
 
-export type InsertUser = z.infer<typeof insertUserSchema>;
+// General insert type, used by storage layer
+export type InsertUser = typeof users.$inferInsert;
 export type User = typeof users.$inferSelect;
