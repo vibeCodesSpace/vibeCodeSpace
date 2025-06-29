@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import EmailSubscribeForm from "@/components/EmailSubscribeForm";
 
 const Auth = () => {
   const handleGitHubSignIn = () => {

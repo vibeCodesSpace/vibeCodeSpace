@@ -40,6 +40,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }),
   );
 
+  // Email subscription route
+  app.post("/api/subscribe", async (req, res) => {
+    try {
+      const { email } = req.body;
+
+      if (!email || !z.string().email().safeParse(email).success) {
+        return res.status(400).json({ message: "Valid email is required" });
+      }
+
+      await storage.createSubscriber({ email });
+      res.status(201).json({ message: "Subscription successful!" });
+    } catch (error) {
+      console.error("Subscription error:", error);
+      res.status(500).json({
+        message: "Failed to subscribe",
+        error: error.message,
+      });
+    }
+  });
+
   // Configure multer for file uploads
   const upload = multer({
     storage: multer.memoryStorage(),

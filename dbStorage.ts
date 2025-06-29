@@ -37,4 +37,9 @@ export class DBStorage implements IStorage {
     const result = await this.db.insert(users).values(insertUser).returning();
     return result[0];
   }
+
+  async createSubscriber(insertSubscriber: InsertSubscriber): Promise<Subscriber> {
+    const result = await this.db.insert(subscribers).values(insertSubscriber).returning();
+    return result[0];
+  }
 }
