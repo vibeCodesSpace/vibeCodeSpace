@@ -9,8 +9,6 @@ export const users = pgTable("users", {
   googleId: text("googleId").unique(),
 });
 
-
-
 // General insert type, used by storage layer
 export type InsertUser = typeof users.$inferInsert;
 export type User = typeof users.$inferSelect;
