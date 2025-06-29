@@ -32,7 +32,7 @@ export class MemStorage implements IStorage {
   }
 
   async getUserByGoogleId(googleId: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
+      return Array.from(this.users.values()).find(
       (user) => user.googleId === googleId,
     );
   }
@@ -40,14 +40,14 @@ export class MemStorage implements IStorage {
   async createUser(insertUser: InsertUser): Promise<User> {
     const id = this.currentId++;
     const user: User = {
-      id,
-      username: insertUser.username!,
-      password: insertUser.password ?? null,
-      googleId: insertUser.googleId ?? null,
+        id,
+        username: insertUser.username!,
+        password: insertUser.password ?? null,
+        googleId: insertUser.googleId ?? null,
     };
     this.users.set(id, user);
-    if (user.googleId) {
-      this.googleIdMap.set(user.googleId, user);
+    if(user.googleId) {
+        this.googleIdMap.set(user.googleId, user);
     }
     return user;
   }
