@@ -24,8 +24,6 @@ export class DBStorage implements IStorage {
     return result[0];
   }
 
-  
-
   async getUserByGithubId(githubId: string): Promise<User | undefined> {
     const result = await this.db
       .select()
