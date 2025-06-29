@@ -25,7 +25,7 @@ export class MemStorage implements IStorage {
   }
 
   async getUserByGithubId(githubId: string): Promise<User | undefined> {
-      return Array.from(this.users.values()).find(
+    return Array.from(this.users.values()).find(
       (user) => user.githubId === githubId,
     );
   }
@@ -33,14 +33,14 @@ export class MemStorage implements IStorage {
   async createUser(insertUser: InsertUser): Promise<User> {
     const id = this.currentId++;
     const user: User = {
-        id,
-        username: insertUser.username!,
-        password: insertUser.password ?? null,
-        githubId: insertUser.githubId ?? null,
+      id,
+      username: insertUser.username!,
+      password: insertUser.password ?? null,
+      githubId: insertUser.githubId ?? null,
     };
     this.users.set(id, user);
-    if(user.githubId) {
-        this.githubIdMap.set(user.githubId, user);
+    if (user.githubId) {
+      this.githubIdMap.set(user.githubId, user);
     }
     return user;
   }

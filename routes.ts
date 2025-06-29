@@ -27,7 +27,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Authentication routes
 
-  app.get("/api/auth/github", passport.authenticate("github", { scope: ["user:email"] }));
+  app.get(
+    "/api/auth/github",
+    passport.authenticate("github", { scope: ["user:email"] }),
+  );
 
   app.get(
     "/api/auth/github/callback",
