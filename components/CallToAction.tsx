@@ -8,7 +8,9 @@ const CallToAction = () => {
           Not just building software — we’re building sovereignty.
         </h2>
         <p className="text-xl mb-6 leading-relaxed text-secondary">
-          VibeCode isn’t another AI tool. It’s the first movement-powered platform that lets anyone, anywhere turn an idea into a live, scalable product — with nothing but a dream and a few words.
+          VibeCode isn’t another AI tool. It’s the first movement-powered
+          platform that lets anyone, anywhere turn an idea into a live, scalable
+          product — with nothing but a dream and a few words.
         </p>
         <p className="text-xl mb-6 leading-relaxed text-secondary">
           Think Replit meets ChatGPT meets spiritual rebellion.
@@ -17,7 +19,8 @@ const CallToAction = () => {
           No dev team? No budget? No problem.
         </p>
         <p className="text-xl mb-6 leading-relaxed text-secondary">
-          If Canva made everyone a designer, VibeCode will make everyone a builder.
+          If Canva made everyone a designer, VibeCode will make everyone a
+          builder.
         </p>
         <p className="text-xl mb-6 leading-relaxed text-secondary">
           We’re removing the gatekeepers.
@@ -29,19 +32,25 @@ const CallToAction = () => {
           We’re making tech as accessible as TikTok.
         </p>
         <p className="text-xl mb-6 leading-relaxed text-secondary">
-          If you believe AI should empower the masses — not just the enterprise — then you already believe in what we’re building.
+          If you believe AI should empower the masses — not just the enterprise
+          — then you already believe in what we’re building.
         </p>
         <p className="text-xl mb-10 leading-relaxed text-secondary">
-          This is more than a product. It’s a platform for the next billion creators.
+          This is more than a product. It’s a platform for the next billion
+          creators.
         </p>
         <p className="text-2xl font-semibold mb-8 text-primary">
-          I’m actively connecting with VCs who get it. If you’re building the future, let’s build it together.
+          I’m actively connecting with VCs who get it. If you’re building the
+          future, let’s build it together.
         </p>
         <p className="text-2xl font-semibold mb-8 text-primary">
           Don’t just invest in AI. Invest in what AI unlocks.
         </p>
         <p className="text-2xl font-bold mb-10 text-primary">
-          Email your offers to <a href="mailto:matty@vibecodes.space" className="underline">matty@vibecodes.space</a>
+          Email your offers to{" "}
+          <a href="mailto:matty@vibecodes.space" className="underline">
+            matty@vibecodes.space
+          </a>
         </p>
         <div className="mb-10">
           <iframe
@@ -57,7 +66,8 @@ const CallToAction = () => {
           ></iframe>
         </div>
         <p className="text-lg text-secondary">
-          #VibeCode #AIforAll #VC #NoCode #GPT #Startup #Founders #BuildTheFuture #TheFutureisMobile
+          #VibeCode #AIforAll #VC #NoCode #GPT #Startup #Founders
+          #BuildTheFuture #TheFutureisMobile
         </p>
       </div>
     </section>
