@@ -1,32 +1,32 @@
 import passport from "passport";
-import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import { Strategy as GitHubStrategy } from "passport-github2";
 import { storage } from "../storage";
 
-if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
-  throw new Error("Missing Google OAuth credentials");
+if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
+  throw new Error("Missing GitHub OAuth credentials");
 }
 
 passport.use(
-  new GoogleStrategy(
+  new GitHubStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientID: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
       callbackURL:
         process.env.NODE_ENV === "production"
-          ? `${process.env.BASE_URL}/api/auth/google/callback`
-          : "/api/auth/google/callback",
-      scope: ["profile", "email"],
+          ? `${process.env.BASE_URL}/api/auth/github/callback`
+          : "/api/auth/github/callback",
+      scope: ["user:email"],
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        const googleId = profile.id;
-        const username = profile.emails?.[0]?.value || profile.displayName;
+        const githubId = profile.id;
+        const username = profile.username;
 
-        let user = await storage.getUserByGoogleId(googleId);
+        let user = await storage.getUserByGithubId(githubId);
 
         if (!user) {
           // If user doesn't exist, create a new one
-          user = await storage.createUser({ googleId, username });
+          user = await storage.createUser({ githubId, username });
         }
 
         return done(null, user);

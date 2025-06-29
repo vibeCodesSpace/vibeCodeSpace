@@ -26,11 +26,11 @@ export class DBStorage implements IStorage {
 
   
 
-  async getUserByGoogleId(googleId: string): Promise<User | undefined> {
+  async getUserByGithubId(githubId: string): Promise<User | undefined> {
     const result = await this.db
       .select()
       .from(users)
-      .where(eq(users.googleId, googleId))
+      .where(eq(users.githubId, githubId))
       .limit(1);
     return result[0];
   }

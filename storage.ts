@@ -4,19 +4,19 @@ import { DBStorage } from "./dbStorage.js";
 // The single source of truth for the storage interface
 export interface IStorage {
   getUser(id: number): Promise<User | undefined>;
-  getUserByGoogleId(googleId: string): Promise<User | undefined>;
+  getUserByGithubId(githubId: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
 }
 
 // In-memory storage for testing or local development
 export class MemStorage implements IStorage {
   private users: Map<number, User>;
-  private googleIdMap: Map<string, User>;
+  private githubIdMap: Map<string, User>;
   currentId: number;
 
   constructor() {
     this.users = new Map();
-    this.googleIdMap = new Map();
+    this.githubIdMap = new Map();
     this.currentId = 1;
   }
 
@@ -24,9 +24,9 @@ export class MemStorage implements IStorage {
     return this.users.get(id);
   }
 
-  async getUserByGoogleId(googleId: string): Promise<User | undefined> {
+  async getUserByGithubId(githubId: string): Promise<User | undefined> {
       return Array.from(this.users.values()).find(
-      (user) => user.googleId === googleId,
+      (user) => user.githubId === githubId,
     );
   }
 
@@ -36,11 +36,11 @@ export class MemStorage implements IStorage {
         id,
         username: insertUser.username!,
         password: insertUser.password ?? null,
-        googleId: insertUser.googleId ?? null,
+        githubId: insertUser.githubId ?? null,
     };
     this.users.set(id, user);
-    if(user.googleId) {
-        this.googleIdMap.set(user.googleId, user);
+    if(user.githubId) {
+        this.githubIdMap.set(user.githubId, user);
     }
     return user;
   }
