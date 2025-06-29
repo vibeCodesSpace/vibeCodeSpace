@@ -13,16 +13,15 @@ import MemoryStore from "memorystore";
 const memorystore = MemoryStore(session);
 
 export async function registerRoutes(app: Express): Promise<Server> {
-
   app.use(
     session({
       secret: process.env.SESSION_SECRET || "secret",
       resave: false,
       saveUninitialized: false,
       store: new memorystore({ checkPeriod: 86400000 }), // 24h
-    })
+    }),
   );
-  
+
   app.use(passport.initialize());
   app.use(passport.session());
 
@@ -76,7 +75,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     passport.authenticate("google", {
       failureRedirect: "/login",
       successRedirect: "/",
-    })
+    }),
   );
 
   // Configure multer for file uploads
