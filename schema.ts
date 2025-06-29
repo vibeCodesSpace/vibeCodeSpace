@@ -9,13 +9,7 @@ export const users = pgTable("users", {
   googleId: text("googleId").unique(),
 });
 
-// Schema for local signup validation (requires password)
-export const localUserSchema = createInsertSchema(users, {
-  password: z.string().min(6, "Password must be at least 6 characters"),
-}).pick({
-  username: true,
-  password: true,
-});
+
 
 // General insert type, used by storage layer
 export type InsertUser = typeof users.$inferInsert;

@@ -15,8 +15,6 @@ interface User {
 
 interface AuthContextType {
   user: User | null;
-  login: (username: string, password: string) => Promise<void>;
-  signup: (username: string, password: string) => Promise<void>;
   logout: () => void;
   loading: boolean;
 }
@@ -37,36 +35,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setLoading(false);
   }, []);
 
-  const login = async (username: string, password: string) => {
-    try {
-      const response = await apiRequest("/api/auth/login", {
-        method: "POST",
-        body: JSON.stringify({ username, password }),
-      });
-
-      setUser(response.user);
-      localStorage.setItem("vibecode_user", JSON.stringify(response.user));
-      setLocation("/dashboard");
-    } catch (error) {
-      throw new Error("Login failed");
-    }
-  };
-
-  const signup = async (username: string, password: string) => {
-    try {
-      const response = await apiRequest("/api/auth/signup", {
-        method: "POST",
-        body: JSON.stringify({ username, password }),
-      });
-
-      setUser(response.user);
-      localStorage.setItem("vibecode_user", JSON.stringify(response.user));
-      setLocation("/dashboard");
-    } catch (error) {
-      throw new Error("Signup failed");
-    }
-  };
-
   const logout = () => {
     setUser(null);
     localStorage.removeItem("vibecode_user");
@@ -74,7 +42,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, signup, logout, loading }}>
+    <AuthContext.Provider value={{ user, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
