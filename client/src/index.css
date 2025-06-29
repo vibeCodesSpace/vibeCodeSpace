@@ -74,3 +74,17 @@
     @apply bg-background text-foreground;
   }
 }
+
+.space-background {
+  background: #000 url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+  animation: star-move 200s linear infinite;
+}
+
+@keyframes star-move {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -10000px -10000px;
+  }
+}

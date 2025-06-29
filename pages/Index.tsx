@@ -4,17 +4,20 @@ import TechStack from "@/components/TechStack";
 import Testimonials from "@/components/Testimonials";
 import CallToAction from "@/components/CallToAction";
 import Footer from "@/components/Footer";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      <Hero />
-      <Features />
-      <TechStack />
-      <Testimonials />
-      <CallToAction />
-      <Footer />
-    </div>
+    <AnimatedBackground>
+      <div className="min-h-screen bg-gray-900 text-white">
+        <Hero />
+        <Features />
+        <TechStack />
+        <Testimonials />
+        <CallToAction />
+        <Footer />
+      </div>
+    </AnimatedBackground>
   );
 };
 
