@@ -10,11 +10,11 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Serve static files from the 'dist' folder
-app.use(express.static(path.join(__dirname, "dist", "public")));
+app.use(express.static(path.join(__dirname, "public")));
 
-// For all GET requests, send back index.html so React Router works
+// For all GET requests, send back index.html
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "public", "index.html"));
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 app.listen(port, () => {
