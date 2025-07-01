@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="bg-[#0f0f0f] text-white">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>VibeCode - Building Sovereignty</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VibeCode – AI App Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
       body {
+        font-family: 'Inter', sans-serif;
         margin: 0;
-        font-family: sans-serif;
         background-color: #000;
         color: #fff;
         overflow-x: hidden;
@@ -30,115 +36,40 @@
           background-position: -10000px -10000px;
         }
       }
-      .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        text-align: center;
-        position: relative;
-        z-index: 1;
-      }
-      h1 {
-        font-size: 2.5em;
-        margin-bottom: 20px;
-        color: #ff5b70; /* Primary brand color */
-      }
-      p {
-        font-size: 1.1em;
-        line-height: 1.6;
-        margin-bottom: 15px;
-        color: #5de794; /* Secondary brand color */
-      }
-      .email-link {
-        font-size: 1.5em;
-        font-weight: bold;
-        color: #ff5b70; /* Primary brand color */
-        text-decoration: underline;
-        margin-top: 30px;
-        display: block;
-      }
-      .youtube-container {
-        position: relative;
-        width: 100%;
-        padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-        height: 0;
-        margin-top: 30px;
-      }
-      .youtube-container iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-      }
-      .hashtags {
-        margin-top: 30px;
-        font-size: 0.9em;
-        color: #5de794; /* Secondary brand color */
-      }
-      .footer {
-        margin-top: 50px;
-        padding: 20px;
-        border-top: 1px solid #333;
-        font-size: 0.9em;
-        color: #aaa;
-      }
-      .footer a {
-        color: #ff5b70; /* Primary brand color */
-        text-decoration: none;
-        margin: 0 10px;
-      }
-      .footer a:hover {
-        text-decoration: underline;
-      }
     </style>
   </head>
-  <body>
+  <body class="flex flex-col items-center justify-center min-h-screen px-4 py-8 text-center">
     <div class="space-background"></div>
-    <div class="container">
-      <h1>Not just building software — we’re building sovereignty.</h1>
-      <p>
-        VibeCode isn’t another AI tool. It’s the first movement-powered platform that lets anyone, anywhere turn an idea into a live, scalable product — with nothing but a dream and a few words.
-      </p>
-      <p>Think Replit meets ChatGPT meets spiritual rebellion.</p>
-      <p>No dev team? No budget? No problem.</p>
-      <p>If Canva made everyone a designer, VibeCode will make everyone a builder.</p>
-      <p>We’re removing the gatekeepers.</p>
-      <p>We’re redefining MVPs.</p>
-      <p>We’re making tech as accessible as TikTok.</p>
-      <p>
-        If you believe AI should empower the masses — not just the enterprise — then you already believe in what we’re building.
-      </p>
-      <p>This is more than a product. It’s a platform for the next billion creators.</p>
-      <p>
-        I’m actively connecting with VCs who get it. If you’re building the future, let’s build it together.
-      </p>
-      <p>Don’t just invest in AI. Invest in what AI unlocks.</p>
-      <a href="mailto:matty@vibecodes.space" class="email-link">Email your offers to matty@vibecodes.space</a>
+    <!-- Logo -->
+    <img src="/logo.png" alt="VibeCode Logo" class="w-16 h-16 mb-4" />
 
-      <div class="youtube-container">
-        <iframe
-          src="https://www.youtube.com/embed/iUEQ36ly7Vk?si=artHn9xOWL0ApEcl"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
-        ></iframe>
-      </div>
+    <!-- Headline -->
+    <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+      Build & Deploy AI-Powered Web Apps.
+    </h1>
+    <p class="text-lg text-gray-400 max-w-xl mb-6">
+      Turn prompts or resumes into live web apps in seconds. No code. No setup. Just vibes.
+    </p>
 
-      <p class="hashtags">
-        #VibeCode #AIforAll #VC #NoCode #GPT #Startup #Founders #BuildTheFuture #TheFutureisMobile
-      </p>
-
-      <div class="footer">
-        <p>&copy; 2025 PacMac Mobile LLC</p>
-        <div>
-          <a href="https://www.reddit.com/u/PackieAI/s/WEewPkN7d" target="_blank" rel="noopener noreferrer">Reddit</a>
-          <a href="https://www.linkedin.com/in/mattjhagen?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="https://calendly.com/vibecode" target="_blank" rel="noopener noreferrer">Calendly</a>
-        </div>
-      </div>
+    <!-- CTA -->
+    <div class="flex flex-col sm:flex-row gap-4">
+      <a
+        href="#"
+        class="px-6 py-3 bg-[#FF5B7A] text-white rounded-lg font-semibold hover:scale-105 transition"
+      >
+         Launching Soon
+      </a>
+      <a
+        href="mailto:founder@vibecode.spaces"
+        class="px-6 py-3 border border-gray-600 text-gray-300 rounded-lg hover:border-white transition"
+      >
+         Contact Me
+      </a>
     </div>
+
+    <!-- Footer -->
+    <p class="mt-10 text-xs text-gray-600">
+      © 2025 VibeCode — Built with ❤️ using GPT, Gemini, and TypeScript.
+    </p>
   </body>
 </html>
