@@ -10,12 +10,12 @@ const port = process.env.PORT || 3000;
 
 const server = http.createServer((req, res) => {
   console.log(`Request URL: ${req.url}`);
-  let filePath = path.join(__dirname, 'public', req.url === '/' ? 'index.html' : req.url);
+  let filePath;
 
   // Handle requests for root path to serve index.html from public
   if (req.url === '/') {
     filePath = path.join(__dirname, 'public', 'index.html');
-  } else if (req.url.startsWith('/')) {
+  } else {
     // For other requests, assume they are for static assets in public
     filePath = path.join(__dirname, 'public', req.url);
   }
@@ -46,8 +46,7 @@ const server = http.createServer((req, res) => {
         res.writeHead(500);
         res.end('Sorry, check with the site admin for error: ' + error.code + '..\n');
       }
-    }
-    else {
+    } else {
       res.writeHead(200, { 'Content-Type': contentType });
       res.end(content, 'utf-8');
     }
