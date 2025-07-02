@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![VibeCode Logo](https://via.placeholder.com/200x100/6366f1/ffffff?text=VibeCode)
+![VibeCode Logo](./public/logo.png)
 
 **Transform ideas into live web applications using AI**
 
