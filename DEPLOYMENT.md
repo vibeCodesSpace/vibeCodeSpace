@@ -3,6 +3,7 @@
 ## Quick Start
 
 1. **Environment Setup**
+
 ```bash
 # Required API keys
 export OPENAI_API_KEY="your-openai-key"
@@ -14,6 +15,7 @@ export DATABASE_URL="postgresql://user:pass@host:5432/vibecode"
 ```
 
 2. **Installation**
+
 ```bash
 npm install
 npm run db:push  # Setup database
@@ -22,6 +24,7 @@ npm run start    # Start server
 ```
 
 3. **Development**
+
 ```bash
 npm run dev      # Start dev server with hot reload
 ```
@@ -29,6 +32,7 @@ npm run dev      # Start dev server with hot reload
 ## Production Deployment
 
 ### Docker Deployment
+
 ```dockerfile
 FROM node:20-alpine
 WORKDIR /app
@@ -41,11 +45,13 @@ CMD ["npm", "start"]
 ```
 
 ### Railway/Render Deployment
+
 - Set environment variables in dashboard
 - Connect GitHub repository
 - Auto-deploy on push to main
 
 ### Self-Hosting
+
 - Requires Node.js 20+ and PostgreSQL 16+
 - Configure reverse proxy (nginx/traefik) for custom domains
 - Set up SSL certificates for HTTPS
@@ -53,12 +59,14 @@ CMD ["npm", "start"]
 ## API Endpoints
 
 ### AI Generation
+
 - `POST /api/ai/generate-site` - Generate website from prompt
 - `POST /api/ai/generate-component` - Generate single component
 - `POST /api/ai/process-resume` - Process resume file upload
 - `GET /api/ai/providers` - Get available AI providers
 
 ### Site Management
+
 - `POST /api/sites` - Create new site
 - `GET /api/sites/user/:userId` - Get user's sites
 - `PUT /api/sites/:siteId` - Update site
@@ -66,6 +74,7 @@ CMD ["npm", "start"]
 - `GET /sites/:subdomain` - Serve published site
 
 ### Authentication
+
 - `POST /api/auth/signup` - User registration
 - `POST /api/auth/login` - User login
 

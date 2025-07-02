@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![VibeCode Logo](https://via.placeholder.com/200x100/6366f1/ffffff?text=VibeCode)
+![VibeCode Logo](./public/logo.png)
 
 **Transform ideas into live web applications using AI**
 
@@ -29,6 +29,7 @@
 ## 🚀 Quick Start
 
 ### 1. Clone and Install
+
 ```bash
 git clone https://github.com/Mattjhagen/vibecode-ai-generator.git
 cd vibecode-ai-generator
@@ -36,6 +37,7 @@ npm install
 ```
 
 ### 2. Environment Setup
+
 ```bash
 # Copy environment template
 cp .env.example .env
@@ -46,11 +48,13 @@ export DATABASE_URL="postgresql://user:pass@localhost:5432/vibecode"
 ```
 
 ### 3. Database Setup
+
 ```bash
 npm run db:push
 ```
 
 ### 4. Start Development
+
 ```bash
 npm run dev
 ```
@@ -64,19 +68,19 @@ graph TB
     A[User Input] --> B{Input Type}
     B -->|Text Prompt| C[AI Site Generator]
     B -->|Resume Upload| D[Resume Processor]
-    
+
     C --> E[AI Manager]
     D --> E
-    
+
     E --> F{Provider Selection}
     F -->|OpenAI| G[GPT-4o]
     F -->|Anthropic| H[Claude Sonnet]
     F -->|Google| I[Gemini Pro]
-    
+
     G --> J[Generated Site]
     H --> J
     I --> J
-    
+
     J --> K[Site Storage]
     K --> L[Subdomain Hosting]
     L --> M[Live Website]
@@ -85,18 +89,21 @@ graph TB
 ## 💡 Use Cases
 
 ### For Developers
+
 - **Rapid Prototyping**: Generate MVPs in minutes
 - **Portfolio Creation**: Automated resume-to-portfolio conversion
 - **Component Library**: Generate reusable UI components
 - **Client Demos**: Quick mockups for client presentations
 
 ### For Non-Technical Users
+
 - **Personal Websites**: Professional sites without coding
 - **Business Landing Pages**: Marketing sites from descriptions
 - **Portfolio Sites**: Professional presence from resume uploads
 - **Event Pages**: Quick sites for events and projects
 
 ### For Agencies
+
 - **Client Prototyping**: Rapid concept visualization
 - **White-Label Solutions**: Custom-branded site generation
 - **Scalable Delivery**: Automated site creation workflow
@@ -105,18 +112,21 @@ graph TB
 ## 🛠️ Tech Stack
 
 **Frontend**
+
 - React 18 with TypeScript
 - Vite for build tooling
 - Tailwind CSS + Shadcn/ui
 - React Query for state management
 
 **Backend**
+
 - Express.js with TypeScript
 - PostgreSQL with Drizzle ORM
 - Multi-AI provider integration
 - RESTful API design
 
 **Infrastructure**
+
 - Node.js 20+ runtime
 - Docker containerization
 - Railway/Render deployment
@@ -125,31 +135,33 @@ graph TB
 ## 📖 API Usage
 
 ### Generate a Website
+
 ```javascript
-const response = await fetch('/api/ai/generate-site', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
+const response = await fetch("/api/ai/generate-site", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
-    prompt: 'Create a modern portfolio website for a software developer',
-    provider: 'openai' // optional
-  })
+    prompt: "Create a modern portfolio website for a software developer",
+    provider: "openai", // optional
+  }),
 });
 
 const { site } = await response.json();
 console.log(site.html); // Generated HTML
-console.log(site.css);  // Generated CSS
-console.log(site.js);   // Generated JavaScript
+console.log(site.css); // Generated CSS
+console.log(site.js); // Generated JavaScript
 ```
 
 ### Process Resume
+
 ```javascript
 const formData = new FormData();
-formData.append('resume', resumeFile);
-formData.append('provider', 'openai');
+formData.append("resume", resumeFile);
+formData.append("provider", "openai");
 
-const response = await fetch('/api/ai/process-resume', {
-  method: 'POST',
-  body: formData
+const response = await fetch("/api/ai/process-resume", {
+  method: "POST",
+  body: formData,
 });
 
 const { resumeData, site } = await response.json();
@@ -158,6 +170,7 @@ const { resumeData, site } = await response.json();
 ## 🔧 Configuration
 
 ### Environment Variables
+
 ```bash
 # Required
 OPENAI_API_KEY=sk-...           # OpenAI API key
@@ -171,13 +184,14 @@ PORT=5000                      # Server port
 ```
 
 ### AI Provider Configuration
+
 ```typescript
 // Custom provider integration
-import { AIProvider } from './ai/providers';
+import { AIProvider } from "./ai/providers";
 
 class CustomProvider implements AIProvider {
-  name = 'custom';
-  
+  name = "custom";
+
   async generateSite(prompt: string) {
     // Your implementation
   }
@@ -187,6 +201,7 @@ class CustomProvider implements AIProvider {
 ## 📚 Examples
 
 ### Basic Site Generation
+
 ```bash
 curl -X POST http://localhost:5000/api/ai/generate-site \
   -H "Content-Type: application/json" \
@@ -194,6 +209,7 @@ curl -X POST http://localhost:5000/api/ai/generate-site \
 ```
 
 ### Resume Processing
+
 ```bash
 curl -X POST http://localhost:5000/api/ai/process-resume \
   -F "resume=@resume.txt" \
@@ -203,15 +219,18 @@ curl -X POST http://localhost:5000/api/ai/process-resume \
 ## 🚀 Deployment
 
 ### Docker
+
 ```bash
 docker build -t vibecode .
 docker run -p 5000:5000 -e OPENAI_API_KEY=your-key vibecode
 ```
 
 ### Railway
+
 [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/your-template)
 
 ### Render
+
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
 
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
@@ -221,6 +240,7 @@ See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
 We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md) for details.
 
 ### Development Setup
+
 ```bash
 git clone https://github.com/Mattjhagen/vibecode-ai-generator.git
 cd vibecode-ai-generator
@@ -229,6 +249,7 @@ npm run dev
 ```
 
 ### Running Tests
+
 ```bash
 npm run test        # Run test suite
 npm run test:watch  # Watch mode

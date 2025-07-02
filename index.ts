@@ -12,8 +12,8 @@ const app = express();
 initSentry(app);
 
 // Create logs directory if it doesn't exist
-if (!fs.existsSync('logs')) {
-  fs.mkdirSync('logs', { recursive: true });
+if (!fs.existsSync("logs")) {
+  fs.mkdirSync("logs", { recursive: true });
 }
 
 app.use(express.json());
@@ -82,33 +82,35 @@ app.use((req, res, next) => {
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
   const port = 5000;
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
-    log(`serving on port ${port}`);
-    logger.info(`Server started successfully on port ${port}`, { 
-      environment: app.get("env"),
-      port 
-    });
-  });
+  server.listen(
+    {
+      port,
+      host: "0.0.0.0",
+      reusePort: true,
+    },
+    () => {
+      log(`serving on port ${port}`);
+      logger.info(`Server started successfully on port ${port}`, {
+        environment: app.get("env"),
+        port,
+      });
+    },
+  );
 
   // Handle graceful shutdown
-  process.on('SIGTERM', () => {
-    logger.info('SIGTERM received, shutting down gracefully');
+  process.on("SIGTERM", () => {
+    logger.info("SIGTERM received, shutting down gracefully");
     server.close(() => {
-      logger.info('Server closed successfully');
+      logger.info("Server closed successfully");
       process.exit(0);
     });
   });
 
-  process.on('SIGINT', () => {
-    logger.info('SIGINT received, shutting down gracefully');
+  process.on("SIGINT", () => {
+    logger.info("SIGINT received, shutting down gracefully");
     server.close(() => {
-      logger.info('Server closed successfully');
+      logger.info("Server closed successfully");
       process.exit(0);
     });
   });
-
 })();

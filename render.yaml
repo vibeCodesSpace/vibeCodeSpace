@@ -1,10 +1,12 @@
 services:
   - type: web
-    name: vibecode-app
+    name: vibeCodeSpace
     env: node
     region: oregon
     plan: starter
-    buildCommand: npm run build
+    buildCommand: rm -rf
+     node_modules package-lock.json                && npm install && npm run
+     db:push && npm run build
     startCommand: npm start
     healthCheckPath: /health
     envVars:

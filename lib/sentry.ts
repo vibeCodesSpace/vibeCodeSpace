@@ -1,20 +1,20 @@
-import * as Sentry from '@sentry/node';
-import { type Express } from 'express';
+import * as Sentry from "@sentry/node";
+import { type Express } from "express";
 
 export function initSentry(app: Express) {
   if (!process.env.SENTRY_DSN) {
-    console.warn('SENTRY_DSN not provided, skipping Sentry initialization');
+    console.warn("SENTRY_DSN not provided, skipping Sentry initialization");
     return;
   }
 
   Sentry.init({
     dsn: process.env.SENTRY_DSN,
-    environment: process.env.NODE_ENV || 'development',
-    tracesSampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1.0,
-    
+    environment: process.env.NODE_ENV || "development",
+    tracesSampleRate: process.env.NODE_ENV === "production" ? 0.1 : 1.0,
+
     beforeSend(event) {
       // Filter out health check errors to reduce noise
-      if (event.request?.url?.includes('/health')) {
+      if (event.request?.url?.includes("/health")) {
         return null;
       }
       return event;
@@ -24,14 +24,14 @@ export function initSentry(app: Express) {
       new Sentry.Integrations.Http({ tracing: true }),
       new Sentry.Integrations.Express({ app }),
       new Sentry.Integrations.OnUnhandledRejection({
-        mode: 'warn',
+        mode: "warn",
       }),
     ],
   });
 
   // RequestHandler creates a separate execution context using domains
   app.use(Sentry.Handlers.requestHandler());
-  
+
   // TracingHandler creates a trace for every incoming request
   app.use(Sentry.Handlers.tracingHandler());
 }
@@ -42,10 +42,10 @@ export function setupSentryErrorHandler(app: Express) {
 
   // Optional fallthrough error handler
   app.use((err: any, req: any, res: any, next: any) => {
-    console.error('Unhandled error:', err);
-    res.status(500).json({ 
-      error: 'Internal server error',
-      timestamp: new Date().toISOString()
+    console.error("Unhandled error:", err);
+    res.status(500).json({
+      error: "Internal server error",
+      timestamp: new Date().toISOString(),
     });
   });
 }

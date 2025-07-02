@@ -5,13 +5,19 @@ import { z } from "zod";
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   username: text("username").notNull().unique(),
-  password: text("password").notNull(),
+  password: text("password"), // Null for OAuth users
+  githubId: text("githubId").unique(),
 });
 
-export const insertUserSchema = createInsertSchema(users).pick({
-  username: true,
-  password: true,
+// General insert type, used by storage layer
+export const subscribers = pgTable("subscribers", {
+  id: serial("id").primaryKey(),
+  email: text("email").notNull().unique(),
+  createdAt: text("created_at").notNull().defaultNow(),
 });
 
-export type InsertUser = z.infer<typeof insertUserSchema>;
+export type InsertUser = typeof users.$inferInsert;
 export type User = typeof users.$inferSelect;
+
+export type InsertSubscriber = typeof subscribers.$inferInsert;
+export type Subscriber = typeof subscribers.$inferSelect;

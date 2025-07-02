@@ -7,18 +7,21 @@ VibeCode is a production-ready AI agent that converts natural language prompts a
 ## ✨ Key Features
 
 ### AI-Powered Generation
+
 - **Text-to-App**: Convert ideas into complete web applications
 - **Resume-to-Portfolio**: Upload resume → professional portfolio site
 - **Multi-Provider Support**: OpenAI GPT-4o, Claude 3.5 Sonnet, Gemini Pro
 - **Smart Fallbacks**: Automatic provider switching for reliability
 
 ### Full-Stack Platform
+
 - **Instant Hosting**: Sites deployed to [name].vibecode.app subdomains
 - **User Management**: Authentication and site ownership
 - **Site Management**: Draft/publish workflow with analytics
 - **Component Library**: Shadcn/ui with Tailwind CSS
 
 ### Technical Excellence
+
 - **Type-Safe**: End-to-end TypeScript with Zod validation
 - **Modern Stack**: React 18, Vite, Express.js, PostgreSQL
 - **Production Ready**: Error handling, logging, session management
@@ -49,14 +52,16 @@ Database (PostgreSQL + Drizzle ORM)
 ## 💰 Market Positioning
 
 **Competitive Advantages:**
+
 - **Complete Solution**: Generate + Host + Manage (vs just generate)
 - **Multi-AI Support**: Reliability through provider diversity
 - **Production Ready**: Full authentication, analytics, deployment
 - **Developer Friendly**: Open source, self-hostable, extensible
 
 **Target Markets:**
+
 - Freelancers needing rapid client prototyping
-- Non-technical entrepreneurs building MVPs  
+- Non-technical entrepreneurs building MVPs
 - Developers automating portfolio creation
 - Agencies offering white-label site generation
 
@@ -77,18 +82,21 @@ Database (PostgreSQL + Drizzle ORM)
 ## 🛠 Technical Roadmap
 
 **Immediate (v1.0)**:
+
 - [ ] Production deployment configuration
 - [ ] Enhanced AI prompt engineering
 - [ ] Custom domain support
 - [ ] Site templates and themes
 
 **Short-term (v1.1-1.2)**:
+
 - [ ] Site editing and customization
 - [ ] Component marketplace
 - [ ] Advanced analytics
 - [ ] Team collaboration features
 
 **Long-term (v2.0+)**:
+
 - [ ] Visual site builder
 - [ ] E-commerce integration
 - [ ] Mobile app generation

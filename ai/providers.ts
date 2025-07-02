@@ -1,4 +1,4 @@
-import OpenAI from 'openai';
+import OpenAI from "openai";
 
 export interface AIProvider {
   name: string;
@@ -15,7 +15,7 @@ export interface GeneratedSite {
     title: string;
     description: string;
     components: string[];
-    framework: 'react' | 'vanilla';
+    framework: "react" | "vanilla";
   };
 }
 
@@ -44,7 +44,7 @@ export interface ResumeData {
 }
 
 class OpenAIProvider implements AIProvider {
-  name = 'openai';
+  name = "openai";
   private client: OpenAI;
 
   constructor(apiKey: string) {
@@ -73,13 +73,13 @@ Do NOT use external CDNs or frameworks. Make it self-contained.`;
       model: "gpt-4o",
       messages: [
         { role: "system", content: systemPrompt },
-        { role: "user", content: prompt }
+        { role: "user", content: prompt },
       ],
       temperature: 0.7,
-      response_format: { type: "json_object" }
+      response_format: { type: "json_object" },
     });
 
-    const result = JSON.parse(completion.choices[0].message.content || '{}');
+    const result = JSON.parse(completion.choices[0].message.content || "{}");
     return result as GeneratedSite;
   }
 
@@ -89,14 +89,15 @@ Do NOT use external CDNs or frameworks. Make it self-contained.`;
       messages: [
         {
           role: "system",
-          content: "Generate a complete HTML component with inline CSS and JavaScript. Make it modern, responsive, and self-contained."
+          content:
+            "Generate a complete HTML component with inline CSS and JavaScript. Make it modern, responsive, and self-contained.",
         },
-        { role: "user", content: description }
+        { role: "user", content: description },
       ],
-      temperature: 0.7
+      temperature: 0.7,
     });
 
-    return completion.choices[0].message.content || '';
+    return completion.choices[0].message.content || "";
   }
 
   async extractResumeData(resumeText: string): Promise<ResumeData> {
@@ -115,19 +116,19 @@ Do NOT use external CDNs or frameworks. Make it self-contained.`;
       model: "gpt-4o",
       messages: [
         { role: "system", content: systemPrompt },
-        { role: "user", content: resumeText }
+        { role: "user", content: resumeText },
       ],
       temperature: 0.3,
-      response_format: { type: "json_object" }
+      response_format: { type: "json_object" },
     });
 
-    const result = JSON.parse(completion.choices[0].message.content || '{}');
+    const result = JSON.parse(completion.choices[0].message.content || "{}");
     return result as ResumeData;
   }
 }
 
 class AnthropicProvider implements AIProvider {
-  name = 'anthropic';
+  name = "anthropic";
   private apiKey: string;
 
   constructor(apiKey: string) {
@@ -135,19 +136,19 @@ class AnthropicProvider implements AIProvider {
   }
 
   async generateSite(prompt: string): Promise<GeneratedSite> {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': this.apiKey,
-        'anthropic-version': '2023-06-01'
+        "Content-Type": "application/json",
+        "x-api-key": this.apiKey,
+        "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: 'claude-3-5-sonnet-20241022',
+        model: "claude-3-5-sonnet-20241022",
         max_tokens: 4000,
         messages: [
           {
-            role: 'user',
+            role: "user",
             content: `Generate a complete, modern website based on this description: ${prompt}
 
 Return only a JSON object with:
@@ -156,10 +157,10 @@ Return only a JSON object with:
 - js: Vanilla JavaScript for interactivity
 - metadata: { title, description, components[], framework: 'vanilla' }
 
-Make it visually stunning and fully responsive.`
-          }
-        ]
-      })
+Make it visually stunning and fully responsive.`,
+          },
+        ],
+      }),
     });
 
     const result = await response.json();
@@ -167,23 +168,23 @@ Make it visually stunning and fully responsive.`
   }
 
   async generateComponent(description: string): Promise<string> {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': this.apiKey,
-        'anthropic-version': '2023-06-01'
+        "Content-Type": "application/json",
+        "x-api-key": this.apiKey,
+        "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: 'claude-3-5-sonnet-20241022',
+        model: "claude-3-5-sonnet-20241022",
         max_tokens: 2000,
         messages: [
           {
-            role: 'user',
-            content: `Generate a complete HTML component: ${description}. Include inline CSS and JavaScript. Make it modern and responsive.`
-          }
-        ]
-      })
+            role: "user",
+            content: `Generate a complete HTML component: ${description}. Include inline CSS and JavaScript. Make it modern and responsive.`,
+          },
+        ],
+      }),
     });
 
     const result = await response.json();
@@ -191,26 +192,26 @@ Make it visually stunning and fully responsive.`
   }
 
   async extractResumeData(resumeText: string): Promise<ResumeData> {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': this.apiKey,
-        'anthropic-version': '2023-06-01'
+        "Content-Type": "application/json",
+        "x-api-key": this.apiKey,
+        "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: 'claude-3-5-sonnet-20241022',
+        model: "claude-3-5-sonnet-20241022",
         max_tokens: 2000,
         messages: [
           {
-            role: 'user',
+            role: "user",
             content: `Extract structured data from this resume and return as JSON:
 ${resumeText}
 
-Format: {"name": "", "title": "", "summary": "", "experience": [], "skills": [], "education": [], "contact": {}}`
-          }
-        ]
-      })
+Format: {"name": "", "title": "", "summary": "", "experience": [], "skills": [], "education": [], "contact": {}}`,
+          },
+        ],
+      }),
     });
 
     const result = await response.json();
@@ -219,7 +220,7 @@ Format: {"name": "", "title": "", "summary": "", "experience": [], "skills": [],
 }
 
 class GeminiProvider implements AIProvider {
-  name = 'gemini';
+  name = "gemini";
   private apiKey: string;
 
   constructor(apiKey: string) {
@@ -227,89 +228,101 @@ class GeminiProvider implements AIProvider {
   }
 
   async generateSite(prompt: string): Promise<GeneratedSite> {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=${this.apiKey}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [
-              {
-                text: `Generate a complete modern website for: ${prompt}
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=${this.apiKey}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                {
+                  text: `Generate a complete modern website for: ${prompt}
 
-Return JSON with: html, css, js, metadata fields. Make it visually stunning and responsive.`
-              }
-            ]
-          }
-        ],
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 4000,
-        }
-      })
-    });
+Return JSON with: html, css, js, metadata fields. Make it visually stunning and responsive.`,
+                },
+              ],
+            },
+          ],
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 4000,
+          },
+        }),
+      },
+    );
 
     const result = await response.json();
     const text = result.candidates[0].content.parts[0].text;
-    
+
     // Extract JSON from markdown code block if present
-    const jsonMatch = text.match(/```json\n([\s\S]*?)\n```/) || text.match(/```\n([\s\S]*?)\n```/);
+    const jsonMatch =
+      text.match(/```json\n([\s\S]*?)\n```/) ||
+      text.match(/```\n([\s\S]*?)\n```/);
     const jsonStr = jsonMatch ? jsonMatch[1] : text;
-    
+
     return JSON.parse(jsonStr) as GeneratedSite;
   }
 
   async generateComponent(description: string): Promise<string> {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=${this.apiKey}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=${this.apiKey}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                {
+                  text: `Generate HTML component: ${description}. Include inline CSS and JS. Make it modern and responsive.`,
+                },
+              ],
+            },
+          ],
+        }),
       },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [
-              {
-                text: `Generate HTML component: ${description}. Include inline CSS and JS. Make it modern and responsive.`
-              }
-            ]
-          }
-        ]
-      })
-    });
+    );
 
     const result = await response.json();
     return result.candidates[0].content.parts[0].text;
   }
 
   async extractResumeData(resumeText: string): Promise<ResumeData> {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=${this.apiKey}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=${this.apiKey}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                {
+                  text: `Extract resume data as JSON: ${resumeText}`,
+                },
+              ],
+            },
+          ],
+        }),
       },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [
-              {
-                text: `Extract resume data as JSON: ${resumeText}`
-              }
-            ]
-          }
-        ]
-      })
-    });
+    );
 
     const result = await response.json();
     const text = result.candidates[0].content.parts[0].text;
-    
+
     // Extract JSON from response
-    const jsonMatch = text.match(/```json\n([\s\S]*?)\n```/) || text.match(/{[\s\S]*}/);
-    const jsonStr = jsonMatch ? (jsonMatch[1] || jsonMatch[0]) : text;
-    
+    const jsonMatch =
+      text.match(/```json\n([\s\S]*?)\n```/) || text.match(/{[\s\S]*}/);
+    const jsonStr = jsonMatch ? jsonMatch[1] || jsonMatch[0] : text;
+
     return JSON.parse(jsonStr) as ResumeData;
   }
 }

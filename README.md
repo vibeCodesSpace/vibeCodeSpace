@@ -9,6 +9,7 @@ VibeCode is a GPT-powered web application and website generator that allows user
 This is a full-stack TypeScript application built with a modern monorepo structure:
 
 ### Frontend Architecture
+
 - **Framework**: React 18 with TypeScript and Vite
 - **UI Library**: Shadcn/ui components with Radix UI primitives
 - **Styling**: Tailwind CSS with custom design system
@@ -17,6 +18,7 @@ This is a full-stack TypeScript application built with a modern monorepo structu
 - **Build Tool**: Vite with hot module replacement
 
 ### Backend Architecture
+
 - **Server**: Express.js with TypeScript
 - **Database**: PostgreSQL with Drizzle ORM
 - **Database Provider**: Neon Database (serverless PostgreSQL)
@@ -24,6 +26,7 @@ This is a full-stack TypeScript application built with a modern monorepo structu
 - **Session Storage**: PostgreSQL-based sessions via connect-pg-simple
 
 ### Development Setup
+
 - **Runtime**: Node.js 20
 - **Package Manager**: npm with package-lock.json
 - **Development**: Hot reload with Vite dev server
@@ -32,24 +35,28 @@ This is a full-stack TypeScript application built with a modern monorepo structu
 ## Key Components
 
 ### Data Layer
+
 - **Schema**: Defined in `shared/schema.ts` using Drizzle ORM
 - **Current Tables**: Users table with username/password authentication
 - **Storage Interface**: Abstracted storage layer with in-memory fallback
 - **Database Migrations**: Managed via Drizzle Kit
 
 ### Authentication System
+
 - **Current State**: Mock authentication with localStorage persistence
 - **Future Integration**: Designed for Supabase Auth integration
 - **Protected Routes**: Route-level protection with loading states
 - **User Context**: React Context provider for global auth state
 
 ### AI Generation Features
+
 - **Text-to-App**: AI generator component for converting prompts to code
 - **Resume-to-Portfolio**: Resume processor for creating portfolio sites
 - **Mock Implementation**: Simulated AI responses for development
 - **Future Integration**: Designed for OpenAI GPT API integration
 
 ### UI Components
+
 - **Design System**: Shadcn/ui with custom Tailwind configuration
 - **Landing Page**: Marketing site with hero, features, testimonials
 - **Dashboard**: Protected area for authenticated users
@@ -66,6 +73,7 @@ This is a full-stack TypeScript application built with a modern monorepo structu
 ## External Dependencies
 
 ### Core Dependencies
+
 - **UI Framework**: React, React Router, React Query
 - **Database**: Drizzle ORM, Neon Database driver
 - **UI Components**: Radix UI primitives, Lucide icons
@@ -74,11 +82,13 @@ This is a full-stack TypeScript application built with a modern monorepo structu
 - **Build Tools**: Vite, ESBuild, TypeScript
 
 ### Development Dependencies
+
 - **Runtime**: Node.js, tsx for TypeScript execution
 - **Linting**: TypeScript strict mode
 - **Hot Reload**: Vite dev server with middleware
 
 ### Future Integrations
+
 - **AI Service**: OpenAI GPT API for code generation
 - **Authentication**: Supabase Auth for user management
 - **Email Service**: Planned for domain/email upgrades
@@ -87,17 +97,20 @@ This is a full-stack TypeScript application built with a modern monorepo structu
 ## Deployment Strategy
 
 ### Development Environment
+
 - **Runtime**: Replit with Node.js 20 and PostgreSQL 16
 - **Port Configuration**: Frontend on 5000, proxied to port 80
 - **Hot Reload**: Vite dev server with Express backend
 
 ### Production Build
+
 - **Frontend**: Vite build to `dist/public`
 - **Backend**: ESBuild bundle to `dist/index.js`
 - **Static Assets**: Served via Express static middleware
 - **Database**: PostgreSQL connection via environment variables
 
 ### Hosting Strategy
+
 - **Platform**: Replit Autoscale deployment
 - **Build Command**: `npm run build`
 - **Start Command**: `npm run start`

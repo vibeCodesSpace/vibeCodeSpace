@@ -1,4 +1,4 @@
-import { GeneratedSite } from '../ai/providers';
+import { GeneratedSite } from "../ai/providers";
 
 export interface StoredSite {
   id: string;
@@ -56,14 +56,14 @@ class SiteStorage {
         provider: data.provider,
         version: 1,
         analytics: {
-          views: 0
-        }
-      }
+          views: 0,
+        },
+      },
     };
 
     this.sites.set(siteId, storedSite);
     this.subdomainIndex.set(data.subdomain, siteId);
-    
+
     // Update user sites index
     if (!this.userSitesIndex.has(data.userId)) {
       this.userSitesIndex.set(data.userId, new Set());
@@ -73,10 +73,13 @@ class SiteStorage {
     return storedSite;
   }
 
-  async updateSite(siteId: string, updates: Partial<Pick<StoredSite, 'name' | 'site' | 'customDomain'>>): Promise<StoredSite> {
+  async updateSite(
+    siteId: string,
+    updates: Partial<Pick<StoredSite, "name" | "site" | "customDomain">>,
+  ): Promise<StoredSite> {
     const site = this.sites.get(siteId);
     if (!site) {
-      throw new Error('Site not found');
+      throw new Error("Site not found");
     }
 
     const updatedSite: StoredSite = {
@@ -85,8 +88,8 @@ class SiteStorage {
       updatedAt: new Date(),
       metadata: {
         ...site.metadata,
-        version: site.metadata.version + 1
-      }
+        version: site.metadata.version + 1,
+      },
     };
 
     this.sites.set(siteId, updatedSite);
@@ -96,13 +99,13 @@ class SiteStorage {
   async publishSite(siteId: string): Promise<StoredSite> {
     const site = this.sites.get(siteId);
     if (!site) {
-      throw new Error('Site not found');
+      throw new Error("Site not found");
     }
 
     const publishedSite: StoredSite = {
       ...site,
       isPublished: true,
-      updatedAt: new Date()
+      updatedAt: new Date(),
     };
 
     this.sites.set(siteId, publishedSite);
@@ -112,13 +115,13 @@ class SiteStorage {
   async unpublishSite(siteId: string): Promise<StoredSite> {
     const site = this.sites.get(siteId);
     if (!site) {
-      throw new Error('Site not found');
+      throw new Error("Site not found");
     }
 
     const unpublishedSite: StoredSite = {
       ...site,
       isPublished: false,
-      updatedAt: new Date()
+      updatedAt: new Date(),
     };
 
     this.sites.set(siteId, unpublishedSite);
@@ -137,7 +140,9 @@ class SiteStorage {
 
   async getUserSites(userId: string): Promise<StoredSite[]> {
     const siteIds = this.userSitesIndex.get(userId) || new Set();
-    return Array.from(siteIds).map(id => this.sites.get(id)).filter(Boolean) as StoredSite[];
+    return Array.from(siteIds)
+      .map((id) => this.sites.get(id))
+      .filter(Boolean) as StoredSite[];
   }
 
   async deleteSite(siteId: string): Promise<boolean> {
@@ -147,7 +152,7 @@ class SiteStorage {
     // Remove from all indexes
     this.sites.delete(siteId);
     this.subdomainIndex.delete(site.subdomain);
-    
+
     const userSites = this.userSitesIndex.get(site.userId);
     if (userSites) {
       userSites.delete(siteId);
@@ -169,24 +174,24 @@ class SiteStorage {
 
     site.metadata.analytics = {
       views: (site.metadata.analytics?.views || 0) + 1,
-      lastViewed: new Date()
+      lastViewed: new Date(),
     };
 
     this.sites.set(siteId, site);
   }
 
   async getPublishedSites(): Promise<StoredSite[]> {
-    return Array.from(this.sites.values()).filter(site => site.isPublished);
+    return Array.from(this.sites.values()).filter((site) => site.isPublished);
   }
 
   async searchSites(query: string): Promise<StoredSite[]> {
     const lowerQuery = query.toLowerCase();
-    return Array.from(this.sites.values()).filter(site => 
-      site.isPublished && (
-        site.name.toLowerCase().includes(lowerQuery) ||
-        site.site.metadata.title.toLowerCase().includes(lowerQuery) ||
-        site.site.metadata.description.toLowerCase().includes(lowerQuery)
-      )
+    return Array.from(this.sites.values()).filter(
+      (site) =>
+        site.isPublished &&
+        (site.name.toLowerCase().includes(lowerQuery) ||
+          site.site.metadata.title.toLowerCase().includes(lowerQuery) ||
+          site.site.metadata.description.toLowerCase().includes(lowerQuery)),
     );
   }
 
