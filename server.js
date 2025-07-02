@@ -1,14 +1,26 @@
 import http from 'http';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const port = process.env.PORT || 3000;
 
 const server = http.createServer((req, res) => {
-  let filePath = '.' + req.url;
-  if (filePath === './') {
-    filePath = './public/index.html';
+  console.log(`Request URL: ${req.url}`);
+  let filePath = path.join(__dirname, 'public', req.url === '/' ? 'index.html' : req.url);
+
+  // Handle requests for root path to serve index.html from public
+  if (req.url === '/') {
+    filePath = path.join(__dirname, 'public', 'index.html');
+  } else if (req.url.startsWith('/')) {
+    // For other requests, assume they are for static assets in public
+    filePath = path.join(__dirname, 'public', req.url);
   }
+
+  console.log(`Resolved file path: ${filePath}`);
 
   const extname = String(path.extname(filePath)).toLowerCase();
   const mimeTypes = {
@@ -26,17 +38,16 @@ const server = http.createServer((req, res) => {
 
   fs.readFile(filePath, (error, content) => {
     if (error) {
+      console.error(`Error reading file ${filePath}: ${error.code}`);
       if (error.code == 'ENOENT') {
-        fs.readFile('./public/index.html', (error, content) => {
-          res.writeHead(200, { 'Content-Type': 'text/html' });
-          res.end(content, 'utf-8');
-        });
+        res.writeHead(404);
+        res.end('404 Not Found');
       } else {
         res.writeHead(500);
         res.end('Sorry, check with the site admin for error: ' + error.code + '..\n');
-        res.end();
       }
-    } else {
+    }
+    else {
       res.writeHead(200, { 'Content-Type': contentType });
       res.end(content, 'utf-8');
     }
@@ -46,3 +57,4 @@ const server = http.createServer((req, res) => {
 server.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
