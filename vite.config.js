@@ -28,7 +28,7 @@ export default defineConfig({
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
   },
-  base: '/',
+  base: "/",
   define: {
     __API_URL__: JSON.stringify(process.env.VITE_API_URL),
   },
